@@ -13,13 +13,10 @@
 
 </head>
 <body class="body-custom-bg">
-    <div class="container" style="padding-top: 1rem; padding-bottom: 1rem;">
-        <a href="home_1.php" type="button" class="btn btn-primary"> &lt; REGRESAR </a>
-      </div>
 
     <div class="position-absolute start-50 translate-middle-x text-center rounded-4 bg-light" style="top: 20px; width: 22rem;padding-bottom: 1rem;padding-top: 1rem;">
             <h2>Iniciar Sesión</h2>
-            <form action="login.php" method="post">
+            <form action="login_admin.php" method="post">
                 <label for="correo">Correo:</label><br>
                 <input type="text" id="correo" name="correo" required><br><br>
         
@@ -28,13 +25,9 @@
                 
                 <input class="btn btn-primary" type="submit" value="Iniciar Sesión">
             </form>
-            <label for="Registro" style="padding-top: 1rem; padding-bottom: 1rem;">¿No tienes cuenta? Crea una.</label><br>
-            <form action="sign_in.html">
-                <input class="btn btn-primary" type="submit" value="Registrarme" action="sign_in.html">
-            </form>
-            <label for="admin" style="padding-top: 2rem; padding-bottom: 1rem;">Iniciar como administrador</label><br>
-            <form action="login_admin.html">
-                <input class="btn btn-primary" type="submit" value="Administrador" action="login.html">
+            <label for="login" style="padding-top: 2rem; padding-bottom: 1rem;">Iniciar como cliente</label><br>
+            <form action="login.html">
+                <input class="btn btn-primary" type="submit" value="Login" action="login.html">
             </form>
         </div>
     </div>

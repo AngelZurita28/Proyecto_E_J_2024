@@ -1,5 +1,8 @@
 <?php
 session_start();
+$_SESSION['home'] = 'home_1.php';
+$companyId = 1;
+$companyName = "Compañía 1";
 ?>
 
 <!DOCTYPE html>
@@ -11,28 +14,24 @@ session_start();
 
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <style>.body-custom-bg {
-        background-color: #dfdddd; /* Color personalizado en hexadecimal */
+        background-color:#f5f5f5 ; /* Color personalizado en hexadecimal */
     }
-    
-    </style>
+        .card {
+        transition: transform 0.3s ease-in-out;
+    }
 
-    <script type="text/javascript">
-        function login() {
-            window.location.href = "login.html";
-        }
-        function sign_in(){
-          window.location.href = "sign_in.html";
-        }
-    </script>
+        .card:hover {
+        transform: scale(1.05);
+    }
+
+    </style>
 </head>
 <body class="body-custom-bg">
 
   <!-- BARRA DE NAVEGACION DE CABECERA -->
 
   <?php
-
-
-    if (isset($_SESSION['nombre']) and isset($_SESSION['nivel_cuenta'])) {
+    if (isset($_SESSION['nombre']) and isset($_SESSION['nivel'])) {
         echo('<header>
         <nav class="navbar bg-body-tertiary">
           <div class="container-fluid">
@@ -47,6 +46,9 @@ session_start();
           <form class="d-flex" action="solicitudes.php">
               <button class="btn btn-danger ms-md-1" style="--bs-btn-padding-x: 1rem;">SOLICITUDES</button>
           </form>
+          <form class="d-flex" action="reporte_anual.php">
+              <button class="btn btn-danger ms-md-1" style="--bs-btn-padding-x: 1rem;">REPORTE</button>
+          </form>
           <div class="display-7"> para asistencia personalizada : +52000000</div>
           </div>
         </nav>
@@ -58,10 +60,24 @@ session_start();
       </div>
       
       ');
+
+      echo ('
+      <div class="container mt-5">
+        
+        <form id="companySelector" method="GET" action="selector.php" class="mb-4">
+            <label for="company" class="form-label">Seleccione la compañía:</label>
+            <select name="company" id="company" class="form-select" onchange="this.form.submit()">
+                <option value="1"'); echo ($companyId == 1) ? 'selected' : ''; echo('>Compañía 1</option>
+                <option value="2"'); echo ($companyId == 2) ? 'selected' : ''; echo('>Compañía 2</option>
+            </select>
+        </form>
+
+    </div>
+      ');
       include ('functions.php');
       mostrar_plan_admin();
     }
-    else if (isset($_SESSION['nombre']) and !isset($_SESSION['nivel_cuenta'])) {
+    else if (isset($_SESSION['nombre'])) {
       echo('<header>
       <nav class="navbar bg-body-tertiary">
         <div class="container-fluid">
@@ -69,10 +85,14 @@ session_start();
             <img src="logo.jpg" alt="Logo" width="40" height="35" class="d-inline-block align-text-top">
             Net Tech
           </a>
-            <div class="display 7" >Bienvenido '. htmlspecialchars($_SESSION['nombre']) . '</div>
+          <form class="d-flex" action="solicitudes_usuario.php">
+              <button class="btn btn-primary ms-md-1" style="--bs-btn-padding-x: 1rem;">MIS SOLICITUDES</button>
+          </form>
+            <a class="display 6" style:"color: rgb(252, 57, 57);" >Bienvenido '. htmlspecialchars($_SESSION['nombre']) . '</a>
             <form class="d-flex" action="cerrar_sesion.php">
             <button class="btn btn-danger ms-md-1" style="--bs-btn-padding-x: 1rem;">Cerrar Sesion</button>
         </form>
+        
         <div class="display-7"> para asistencia personalizada : +52000000</div>
         </div>
       </nav>
@@ -80,6 +100,20 @@ session_start();
     </header>
     
     ');
+
+    echo ('
+      <div class="container mt-5">
+        
+        <form id="companySelector" method="GET" action="selector.php" class="mb-4">
+            <label for="company" class="form-label">Seleccione la compañía:</label>
+            <select name="company" id="company" class="form-select" onchange="this.form.submit()">
+                <option value="1"'); echo ($companyId == 1) ? 'selected' : ''; echo('>Compañía 1</option>
+                <option value="2"'); echo ($companyId == 2) ? 'selected' : ''; echo('>Compañía 2</option>
+            </select>
+        </form>
+
+    </div>
+      ');
     include ('functions.php');
     mostrar_plan();
   } else {
@@ -99,11 +133,29 @@ session_start();
           </div>
         </nav>
       
-      </header>');
+      </header>
+      
+      ');
+
+      echo ('
+      <div class="container mt-5">
+        
+        <form id="companySelector" method="GET" action="selector.php" class="mb-4">
+            <label for="company" class="form-label">Seleccione la compañía:</label>
+            <select name="company" id="company" class="form-select" onchange="this.form.submit()">
+                <option value="1"'); echo ($companyId == 1) ? 'selected' : ''; echo('>Compañía 1</option>
+                <option value="2"'); echo ($companyId == 2) ? 'selected' : ''; echo('>Compañía 2</option>
+            </select>
+        </form>
+
+    </div>
+      ');
       include ('functions.php');
+      
       mostrar_plan();
     }
     ?>
+    
 
     
     <script src="./js/bootstrap.min.js"></script>

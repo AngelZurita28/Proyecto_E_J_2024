@@ -12,31 +12,6 @@ include 'functions.php';
 
     <link rel="stylesheet" href="./css/bootstrap.min.css">
 
-    <script>
-      function cargarDatos() {
-            // Obtener el precio almacenado en LocalStorage
-            var precio = 750;
-            var direccion = localStorage.getItem("direccion");
-            var codigo_postal = localStorage.getItem("codigo_postal");
-            var colonia = localStorage.getItem("colonia");
-            var ciudad = localStorage.getItem("ciudad");
-            var nombre_plan = localStorage.getItem("nombre_plan");
-            var megas = localStorage.getItem("megas");
-            var descripcion = localStorage.getItem("descripcion");
-
-            
-            var direccion_string = direccion + " " + codigo_postal;
-            document.getElementById("direccion").innerText =direccion_string;
-
-            var numero_servicio = Math.floor(Math.random() * 200) + 1000;
-            document.getElementById("numero_servicio").innerText = numero_servicio;
-            document.getElementById("numero_orden_servicio").innerText = numero_servicio;
-
-        }
-
-
-    </script>
-
     <style>.body-custom-bg {
         background-color: #dfdddd; /* Color personalizado en hexadecimal */
     }
@@ -51,7 +26,7 @@ include 'functions.php';
         echo('<header>
         <nav class="navbar bg-body-tertiary">
           <div class="container-fluid">
-            <a class="navbar-brand" href="home.html">
+            <a class="navbar-brand" href="home.php">
               <img src="logo.jpg" alt="Logo" width="40" height="35" class="d-inline-block align-text-top">
               Net Tech
             </a>
@@ -87,43 +62,38 @@ include 'functions.php';
 
     <?php
     $plan_id = $_SESSION['plan_id'];
-    $direccion = $_GET['direccion'];
-    $colonia = $_GET['colonia'];
-    $codigo_postal = $_GET['codigo_postal'];
-    $_SESSION['direccion'] = $direccion;
+    $_SESSION['direccion'] = $_GET['direccion'];
+    $_SESSION['colonia'] = $_GET['colonia'];
+    $_SESSION['codigo_postal'] = $_GET['codigo_postal'];
+   
     include 'conexion.php';
-    $sql = "SELECT * FROM Plan WHERE id = '$plan_id'";
-    $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
-      $row = $result->fetch_assoc();
+    $sql = "EXECUTE obtenerProducto_id $plan_id;";
+    $stmt = sqlsrv_query($conn, $sql);
+    sqlsrv_execute($stmt);
+    if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)){
       echo('<div class="container" style="padding-top: 1rem; padding-bottom: 1rem;">
       <div class="container rounded-4 bg-light" style="padding: 2rem;">
-        <h3 style="color: rgb(252, 57, 57);" id="nombre_plan" value"'.htmlspecialchars($row['nombre']).'">'.htmlspecialchars($row['nombre']).'</h3>
         <div class="row ">
-          <div class="col d-flex justify-content-center text-end display-5 align-items-center" style="color: rgb(252, 57, 57);" id="megas" value="'.htmlspecialchars($row['megas']).'">
-            '.htmlspecialchars($row['megas']).'
-          </div>
-          <div class="col-6 d-flex text-start align-items-center">
-            <div class="row" id="descripcion" value="'.htmlspecialchars($row['descripcion']).'">
-              '.htmlspecialchars($row['descripcion']).'
-            </div>     
-          </div>
-          <div  class="col d-flex text-start align-items-center">cantidad de equipos: 
-          '.htmlspecialchars($row['equipos']).' y cubre '.htmlspecialchars($row['metros']).' metros cuadrados
-          </div>
-          <div class="col d-flex justify-content-center text-end display-6 align-items-center" style="color: rgb(252, 57, 57);" id="precio" value="'.htmlspecialchars($row['precio']).'">
-          $'.htmlspecialchars($row['precio']).'
-          </div>
+          <div class="col d-flex text-start display-6" style="color: rgb(252, 57, 57);">
+      '.htmlspecialchars($row['nombre']).'
+      </div>
+      <div class="col-6 d-flex text-start align-items-center">
+        <div class="row" style="padding: 1rem;">
+        '.htmlspecialchars($row['descripcion']).'
+        </div>
+      </div>
+      <div class="col d-flex text-end align-items-center"> '.htmlspecialchars($row['nombre_proveedor']).'</div>
+      <div class="col d-flex justify-content-center text-end display-6 align-items-center" style="color: rgb(252, 57, 57);">
+      $'.htmlspecialchars($row['precio']).'</div>
         </div>
         </div>
       </div>
       
       <div class="container" style="padding-top: 1rem; padding-bottom: 1rem;">
             <div class="container rounded-4 bg-light" style="padding: 2rem;">
-                <p id="direccion"></p>
+                <p id="direccion">'.htmlspecialchars($_SESSION['direccion']).' C.P.'.htmlspecialchars($_SESSION['codigo_postal']).', Colonia '.htmlspecialchars($_SESSION['colonia']).'</p>
                 <form action="registro_instalaciones.php" method="get">
                 <input type="hidden" id="numero_servicio">
-                <p>(recuerda que el precio final esta sujeto a modificaciones realizadas en la pantalla anterior, uno de nuestros tecnicos lo revisara y se pondra en contacto contigo)</p>
                 <div class="row" style="padding: 2rem;">
                     <div class="col text-center">
                       
@@ -139,22 +109,6 @@ include 'functions.php';
     }
 
     ?>
-
-        <!-- <div class="container" style="padding-top: 1rem; padding-bottom: 1rem;">
-            <div class="container rounded-4 bg-light" style="padding: 2rem;">
-                <p id="direccion"></p>
-                <div id="numero_servicio" style="padding-top: 2rem;"></div>
-                <p>(recuerda que el precio final esta sujeto a modificaciones realizadas en la pantalla anterior, uno de nuestros tecnicos lo revisara y se pondra en contacto contigo)</p>
-                <div class="row" style="padding: 2rem;">
-                    <div class="col text-center">
-                      <form action="registro_instalaciones.php" method="get">
-                        <button type="submit" class="btn btn-danger" style="width: 10rem;" action="registro_instalaciones.php" >HACER SOLICITUD</button>
-                      </form>
-                      </div>
-                </div>
-            </div>
-        </div>   -->
-
 
     <script src="./js/bootstrap.min.js"></script>
 </body>

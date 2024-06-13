@@ -1,7 +1,6 @@
 <?php
 session_start();
 $home = $_SESSION['home'];
-
 include('conexion.php');
 
 // Verificar si se recibieron las variables a través del método POST
@@ -15,7 +14,7 @@ if (isset($_POST['correo']) && isset($_POST['clave'])) {
     }
 
     // Consulta SQL para verificar si el correo existe
-    $sql = "SELECT * FROM Cliente WHERE correo = ?";
+    $sql = "SELECT * FROM Empleados WHERE correo = ?";
     $params = array($correo);
     $stmt = sqlsrv_prepare($conn, $sql, $params);
 
@@ -28,11 +27,11 @@ if (isset($_POST['correo']) && isset($_POST['clave'])) {
         // Verificar si se encontró un usuario con el correo proporcionado
         if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
             // Verificar si la clave es correcta
-            $hashedPassword = $row['clave'];
-            if (password_verify($clave, $hashedPassword)) {
+            if ($clave == $row['clave']) {
                 echo "Inicio de sesión exitoso!";
-                $_SESSION['id_cliente'] = $row['id_cliente'];
+                $_SESSION['id_empleado'] = $row['id_empleados'];
                 $_SESSION['nombre'] = $row['nombre'];
+                $_SESSION['nivel'] = $row['id_nivel'];
                 header('LOCATION: '.$home);
             } else {
                 echo "Clave incorrecta.";
@@ -51,7 +50,7 @@ if (isset($_POST['correo']) && isset($_POST['clave'])) {
     sqlsrv_free_stmt($stmt);
 } else {
     echo "Por favor, proporcione correo y clave.";
-    header('LOCATION: '.$home);
+    header('LOCATION: login.html');
 }
 
 // Cerrar la conexión

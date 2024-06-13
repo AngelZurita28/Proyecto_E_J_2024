@@ -15,40 +15,32 @@ session_start();
     }
     
     </style>
-
-    <script type="text/javascript">
-        function login() {
-            window.location.href = "login.html";
-        }
-        function sign_in(){
-          window.location.href = "sign_in.html";
-        }
-    </script>
 </head>
 <body class="body-custom-bg">
 <div class="container" style="padding-top: 1rem; padding-bottom: 1rem;">
-        <a href="home_1.php" type="button" class="btn btn-primary"> &lt; REGRESAR </a>
+        <a href="home_2.php" type="button" class="btn btn-primary"> &lt; REGRESAR </a>
       </div>
 <div class="container" style="padding-top: 1rem; padding-bottom: 1rem;">
-<form action="plan_agregado.php" method="get">
+<form action="producto_agregado.php" method="get">
         <div class="container rounded-4 bg-light" style="padding: 2rem;">
-            <p>Agregar especificaciones del plan</p>
+            <p>Agregar especificaciones del Producto</p>
             <div class="row g-2">
                 <div class="col-md">
                   <div class="form-floating">
-                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="1" ">
-                    <label for="cantidad_equipos">Nombre del Plan</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" value="">
+                    <label for="Nombre_Producto">Nombre del Producto</label>
+                  </div>
+                </div>
+                <div class="col-md">
+                  <div class="form-floating">
+                  <input type="text" class="form-control" id="descripcion" name="descripcion">
+                  <label for="Descripcion">Descripcion</label>
                   </div>
                 </div>
             </div>
             
               <div class="row g-2">
-                <div class="col-md">
-                  <div class="form-floating">
-                    <input type="number" class="form-control" id="megas" name="megas" placeholder="1" step="10" value="0">
-                    <label for="plantas">Cantidad Megas</label>
-                  </div>
-                </div>
+                
                 <div class="col-md">
                     <div class="form-floating">
                       <input type="number" class="form-control" id="precio" name="precio" placeholder="1" value="0">
@@ -57,16 +49,11 @@ session_start();
                   </div>
               </div>
               <div class="row g-2">
-                <div class="col-md">
-                  <div class="form-floating">
-                    <input type="number" class="form-control" id="equipos" name="equipos" placeholder="1" value="0">
-                    <label for="plantas">Cantidad de equipos en Red</label>
-                  </div>
-                </div>
+                
                 <div class="col-md">
                     <div class="form-floating">
-                      <input type="number" class="form-control" id="metros" name="metros" placeholder="1" step="10" value="0">
-                      <label for="ancho_banda">Metros cuadrados de instalacion</label>
+                      <input type="number" class="form-control" id="inventario" name="inventario" placeholder="1" min="1" value="0">
+                      <label for="ancho_banda">Inventario</label>
                     </div>
                   </div>
               </div>
@@ -74,7 +61,7 @@ session_start();
     </div>
     <div style="padding-top:2rem;">
 
-        <input type="submit" class="btn btn-danger text" style="width: 10rem;" value="AGREGAR" >
+        <input type="submit" class="btn btn-primary text" style="width: 10rem;" value="AGREGAR" >
       </div>
     </form>
 

@@ -4,6 +4,7 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+$home = $_SESSION['home'];
 // Eliminar todas las variables de sesión
 $_SESSION = array();
 
@@ -21,6 +22,6 @@ if (ini_get("session.use_cookies")) {
 session_destroy();
 echo'se elimino la sesion';
 
-header("Location: home.php");
+header("Location:".$home);
 exit();
 
