@@ -125,7 +125,7 @@ $companyName = "Compañía 1";
               <img src="logo.jpg" alt="Logo" width="40" height="35" class="d-inline-block align-text-top">
               Net Tech
             </a>
-              <button onclick="sign_in()" class="btn btn-light" style="--bs-btn-padding-x: 1rem;"><u>Registrarme</u></button>
+              <a href="sign_in.html" class="btn btn-light" style="--bs-btn-padding-x: 1rem;"><u>Registrarme</u></a>
             <form class="d-flex" action="login.html">
               <button onclick="login()" class="btn btn-danger ms-md-1" style="--bs-btn-padding-x: 1rem;">Iniciar Sesion</button>
           </form>
